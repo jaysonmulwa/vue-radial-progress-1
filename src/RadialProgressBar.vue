@@ -9,7 +9,7 @@
          version="1.1"
          xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient :id="'radial-gradient' + _uid"
+        <radialGradient :id="'radial-gradient' + _id"
                         :fx="gradient.fx"
                         :fy="gradient.fy"
                         :cx="gradient.cx"
@@ -33,7 +33,7 @@
               :cx="radius"
               :cy="radius"
               fill="transparent"
-              :stroke="'url(#radial-gradient' + _uid + ')'"
+              :stroke="'url(#radial-gradient' + _id + ')'"
               :stroke-dasharray="circumference"
               :stroke-dashoffset="circumference"
               :stroke-linecap="strokeLinecap"
@@ -109,6 +109,16 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    useCustomId:{
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    customId:{
+      type: Number,
+      required: false,
+      default: Math.floor(Math.random() * 100)
     }
   },
 
@@ -206,6 +216,11 @@ export default {
         width: `${this.innerCircleDiameter}px`
       }
     },
+
+    _id () {
+      if (this.useCustomId) return this.customId;
+      return this._uid;
+    }
   },
 
   methods: {
